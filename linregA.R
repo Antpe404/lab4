@@ -10,16 +10,16 @@ test<-function(formula,data){
   dep.var <- as.matrix(data[dep.var])     #Extracts the data of the y-variable 
   # and overwrites it with the data-colum 
   
-  beta.hat <- solve( t(des.mat) %*% des.mat )  %*% t(des.mat) %*% dep.var #Calculating the beta coeffs. (X' %*% X)^-1 %*% X' %*% y
+  betahat <- solve( t(des.mat) %*% des.mat )  %*% t(des.mat) %*% dep.var #Calculating the beta coeffs. (X' %*% X)^-1 %*% X' %*% y
   
-  y.hat <- des.mat %*% beta.hat # Calculating the y-hat  , y_hat = X %*% beta_hat 
+  yhat <- des.mat %*% betahat # Calculating the y-hat  , y_hat = X %*% beta_hat 
   
-  res.err <- dep.var - y.hat  #Calculating the residuals e= y- y_hat 
+  resid <- dep.var - yhat  #Calculating the residuals e= y- y_hat 
   #################
-  degree.free <- nrow(desmat)-ncol(desmat)  #Degrees of freedom, n - p 
+  df <- nrow(desmat)-ncol(desmat)  #Degrees of freedom, n - p 
   #Vet inte vfr KS hade -1 på slutet. TÄnker mig att df bör vara nrow-antal coef eg. Typ nrow(data)-length(betahat)
   
-  res.var2 <-( t(res.err) %*% res.err ) / degree.free #Calculating the residual variance (e' %*% e) / df  
+  residVar <-( t(res.err) %*% res.err ) / degree.free #Calculating the residual variance (e' %*% e) / df  
   
   var.hat.bhat <- res.var2 %*%  solve( t(des.mat) %*% des.mat ) #Calculating 
   
