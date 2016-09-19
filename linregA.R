@@ -5,32 +5,52 @@ if(!is.expression(formula)) stop("The given formula is not a correct expression"
 test<-function(formula,data){
   
   
-  des.mat <- model.matrix(formula , data) #Extracts the model matrix
-  dep.var <- all.vars(formula)[1]         #Extracts the name of the y-variable 
-  dep.var <- as.matrix(data[dep.var])     #Extracts the data of the y-variable 
+  desmat <- model.matrix(formula , data) #Extracts the model matrix
+  depvar <- all.vars(formula)[1]         #Extracts the name of the y-variable 
+  depvar <- as.matrix(data[depvar])     #Extracts the data of the y-variable 
   # and overwrites it with the data-colum 
   
-  betahat <- solve( t(des.mat) %*% des.mat )  %*% t(des.mat) %*% dep.var #Calculating the beta coeffs. (X' %*% X)^-1 %*% X' %*% y
+  betahat <- solve( t(desmat) %*% desmat )  %*% t(desmat) %*% depvar # (X' %*% X)^-1 %*% X' %*% y
   
-  yhat <- des.mat %*% betahat # Calculating the y-hat  , y_hat = X %*% beta_hat 
+  yhat <- desmat %*% betahat # Calculating the y-hat  , y_hat = X %*% beta_hat 
   
-  resid <- dep.var - yhat  #Calculating the residuals e= y- y_hat 
-  #################
-  df <- nrow(desmat)-ncol(desmat)  #Degrees of freedom, n - p 
+  residErr <- depvar - yhat  #Calculating the residuals e= y- y_hat 
+ 
+  degreesFreedom <- nrow(desmat)-ncol(desmat)  #Degrees of freedom, n - p 
   #Vet inte vfr KS hade -1 på slutet. TÄnker mig att df bör vara nrow-antal coef eg. Typ nrow(data)-length(betahat)
   
-  residVar <-( t(res.err) %*% res.err ) / degree.free #Calculating the residual variance (e' %*% e) / df  
+  residVar <-( t(residErr) %*% residErr) / degreesFreedom #Calculating the residual variance (e' %*% e) / df  
   
-  var.hat.bhat <- res.var2 %*%  solve( t(des.mat) %*% des.mat ) #Calculating 
+ VarRegCoef<- as.vector(residVar)*solve(t(desmat) %*% desmat)
+VarRegCoef<-diag(VarRegCoef)
+ #Vet inte om det är denna som ska has?
   
-  t.beta <- beta.hat / sqrt( var.hat.bhat )
-  my.pvalues<- pt(t.beta)
-  
+ t_values <- betahat / sqrt(VarRegCoef)
+  #Denna tar första elementet i betahat, dvs Beta0-skattningen, genom roten av dess varians.
+  #Andra elementet i t_test är således beta1-skattningen genom roten av dess varians.
+ 
+ 
+ p_values<-(1-pt(abs(t_values), df=148))*2
+ #p_values<-p_values*2
+ 
+ listan<-list(betahat, yhat, residErr, degreesFreedom, residVar, VarRegCoef, t_values, p_values)
+ class(listan)<-"linreg"
+ return(listan)
 }
 
 test(Sepal.Length~ Sepal.Width, iris)
+fm2 <- lm(Sepal.Length ~ Petal.Length, iris)
+summary(fm2)
 
 ############ALLT NEDANFÖR ÄR EGNA MANUELLA TESTER
+
+fm1 <- lm(Sepal.Length ~ Sepal.Width, iris) #Blir samma som i Emils kod     
+desmat<-model.matrix(fm1)#Vilket visas här.
+
+formula<-(Sepal.Length~Sepal.Width)
+depvar<-all.vars(formula)[1]
+depvar<-as.matrix(iris[depvar])
+
 
 #Manuell uträkning av betahat
 del1<-solve((t(desmat)%*%desmat))#2*2
@@ -50,6 +70,25 @@ df<-nrow(desmat)-ncol(desmat)
 #Manuellt uträkning av residual variance
 resvar<-(t(res)%*%res)/df
 
+#Manuellt test av regression coefficients
+VarRegCoef<- as.vector(resvar)*solve(t(desmat) %*% desmat)
+VarRegCoef<-diag(VarRegCoef)
+#Om det vi söker är variance of the slope and beta0 bör detta vara rätt. 
+#VarRegCoef är i nuläget covariance matrixen, alltså densamma som vcov(fm1) i nedan testande
+#lm-funktionen. vcov(fm1)=VarRegCoef.
+
+#Manuellt t-test
+t_values <- betahat / sqrt(VarRegCoef)
+p_values<-1-pt(abs(t_values), df=148)
+p_values<-p_values*2
+
+summary(fm1)
+
+
+
+var.hat.bhat <- res.var2 %*%solve(t(des.mat) %*% des.mat ) #Calculating 
+
+
 model.matrix(~Sepal.Length + Sepal.Width, iris)
 model.matrix(Sepal.Length ~ Sepal.Width, iris)
 
@@ -59,15 +98,9 @@ dd
 options("contrasts")
 model.matrix(~ a + b, dd)
 
-fm1 <- lm(Sepal.Length ~ Sepal.Width, iris) #Blir samma som i Emils kod     
-desmat<-model.matrix(fm1)#Vilket visas här.
-
 Sepal.Length~Sepal.Width[1]
 all.vars(Sepal.Length~Sepal.Width)[1]
 
-formula<-(Sepal.Length~Sepal.Width)
-depvar<-all.vars(formula)[1]
-depvar<-as.matrix(iris[depvar])
 
 dim(t(model.matrix(fm1)))
 dim(iris[depvar])
@@ -84,3 +117,11 @@ solve((t(desmat)%*%desmat))%*%t(desmat)%*%as.matrix(depvar)
 
 lm(Sepal.Length ~ Sepal.Width, iris)
 fm1$df.residual
+
+
+#Angående the var of the reg coef.
+summary(fm1)$coefficients
+summary(fm1)$coefficients[2,2]
+(summary(fm1)$coefficients[2,2])**2
+#Ovanstående rad equals nedanstående
+vcov(fm1)[2,2]
