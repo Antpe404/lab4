@@ -7,7 +7,7 @@ test<-function(formula,data){
   
   des.mat <- model.matrix(formula , data) #Extracts the model matrix
   dep.var <- all.vars(formula)[1]         #Extracts the name of the y-variable 
-  dep.var <- data[dep.var]                #Extracts the data of the y-variable 
+  dep.var <- as.matrix(data[dep.var])     #Extracts the data of the y-variable 
                                           # and overwrites it with the data-colum 
 
   beta.hat <- solve( t(des.mat) %*% des.mat )  %*% t(des.mat) %*% dep.var #Calculating the beta coeffs. (X' %*% X)^-1 %*% X' %*% y
