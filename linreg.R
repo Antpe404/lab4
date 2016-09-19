@@ -1,6 +1,6 @@
-data.class() #Behover nog den har far att testa om det är S3 eller RC.
+#data.class() #Behover nog den har far att testa om det är S3 eller RC.
 
-if(!is.expression(formula)) stop("The given formula is not a correct expression") #oklar om den är nödvändig
+#if(!is.expression(formula)) stop("The given formula is not a correct expression") #oklar om den är nödvändig
 
 test<-function(formula,data){
   
@@ -15,17 +15,27 @@ test<-function(formula,data){
   y.hat <- des.mat %*% beta.hat # Calculating the y-hat  , y_hat = X %*% beta_hat 
   
   res.err <- dep.var - y.hat  #Calculating the residuals e= y- y_hat 
-  #################
-  degree.free <- nrow(des.mat) - ncol(des.mat) - 1  #Degrees of freedom, n - p 
+  
+  degree.free <- nrow(des.mat) - ncol(des.mat)  #Degrees of freedom, n - p 
   #OKLART OM p = b0 till b4 = 5  eller om det är p = b1 -b4 = 4 
   
   res.var2 <-( t(res.err) %*% res.err ) / degree.free #Calculating the residual variance (e' %*% e) / df  
   
-  var.hat.bhat <- res.var2 %*%  solve( t(des.mat) %*% des.mat ) #Calculating 
+  var.hat.bhat <-diag( as.vector(res.var2) *  solve( t(des.mat) %*% des.mat )  )#Calculating 
   
   t.beta <- beta.hat / sqrt( var.hat.bhat )
-  my.pvalues<- pt(t.beta)
+  my.pvalues<- (1 - pt( abs( t.beta ) ,df = degree.free) ) * 2 
   
+  l<-list( coefficients = t(beta.hat) , degree.free = degree.free, res.var2 = res.var2, var.hat.bhat = var.hat.bhat,
+           t.beta = t.beta, my.pvalues = my.pvalues, formula = formula, dataset=deparse(substitute(data)),
+          data=cbind(des.mat,dep.var),y.hat=y.hat,res.err=res.err)
+  class(l) <- "linreg"
+  rownames(l$coefficients) <- ""
+  return(l)
   }
 
-test(Sepal.Length~ Sepal.Width, iris)
+mylm<-test(Sepal.Length~ Sepal.Width, iris)
+skit<-lm(Sepal.Length~ Petal.Width, iris)
+
+
+
