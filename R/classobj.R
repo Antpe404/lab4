@@ -4,8 +4,8 @@ print("                    ")
 print(l$coefficients)
 }
 
-print(mylm) 
-print.linreg(mylm)
+#print(mylm) 
+#print.linreg(mylm)
 
 resid.linreg <- function(l) { 
   print(paste("Vector containing the residuals"))
@@ -13,8 +13,8 @@ resid.linreg <- function(l) {
   print(as.vector(l$res.err))
 }
 
-resid(mylm)
-resid.linreg(mylm)
+#resid(mylm)
+#resid.linreg(mylm)
 
 
 
@@ -24,8 +24,8 @@ predict.linreg <- function(l) {
   print(l$y.hat)
 }
 
-predict(mylm)
-resid.linreg(mylm)
+#predict(mylm)
+#resid.linreg(mylm)
 
 coef.linreg <- function(l) { 
   #print(paste("Formula: (", l$formula[2], " ~ ", l$formula[3],") ,   data: ", l$dataset, sep=""))
@@ -33,7 +33,8 @@ coef.linreg <- function(l) {
   names(Coefficients) = c("(Intercept)", paste(l$formula[3]))
   print(Coefficients)
 }
-coef(mylm)
+
+#coef(mylm)
 
 
 
@@ -55,7 +56,32 @@ summary.linreg <- function(l) {
   
 }
 
-summary(mylm)
+#summary(mylm)
+
+### pred
+
+pred <- function(l,newdata =NA) UseMethod("pred")
+pred.linreg<-function(l,newdata = NA) {
+  
+  if(is.na(newdata)){
+    return(print(l$y.hat))
+    
+  } else if(is.matrix(newdata) | is.data.frame(newdata)) {
+    if(!all(newdata[,1] == 1)){ 
+      newdata<-as.matrix(cbind(as.matrix(rep(1,nrow(newdata)),ncol=1),newdata))
+    }
+    
+    yhat <- newdata %*% t(l$coefficients) #Skriv funktionen här
+    return(print(yhat))
+  }
+}
+
+
+#pred(mylm)
+
+#pred(skit)
+
+
 
 
 #### Plott funktionen 
@@ -95,4 +121,4 @@ p3<-arrangeGrob(p1,p2,ncol=2)
 plot(p3)
 }
 
-plot(mylm)
+#plot(mylm)
