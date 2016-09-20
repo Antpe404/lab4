@@ -1,4 +1,7 @@
-pred<-function(l,newdata = NA){
+
+pred <- function(l,newdata =NA) UseMethod("pred")
+pred.linreg<-function(l,newdata = NA) {
+  
   if(is.na(newdata)){
     return(print(l$y.hat))
     
@@ -12,5 +15,7 @@ pred<-function(l,newdata = NA){
   }
 }
 
+
+pred(mylm)
+
 pred(skit)
-pred(mylm, )

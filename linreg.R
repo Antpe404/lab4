@@ -34,9 +34,9 @@ test<-function(formula,data){
   return(l)
   }
 
-mylm<-test( Sepal.Length ~ Sepal.Width , iris)
+mylm<-test( Petal.Length ~ Species, iris)
+mylm<-test(Sepal.Length ~ Sepal.Width,data = iris)
 
-Petal.Length ~ Species
 skit<-test(Sepal.Length~ Petal.Width, iris)
 
 
