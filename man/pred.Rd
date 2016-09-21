@@ -2,11 +2,11 @@
 % Please edit documentation in R/pred.R
 \name{pred}
 \alias{pred}
-\title{Available methods in 'linreg'}
+\title{The fitted values from the linear regression 'linreg'}
 \usage{
 pred(l, newdata = NA)
 }
 \description{
-The methods available for the linreg-package are described here.
+The pred()-statement returns a vector including all fitted values from the linear regression.
 }
 

@@ -1,6 +1,6 @@
-#' Available methods in 'linreg'
+#' The coefficients from the linear regression 'linreg'
 #' 
-#' The methods available for the linreg-package are described here.
+#' The coef() returns all estimates for the coefficients in your linear regression.
 #' 
 #' 
 #' @export

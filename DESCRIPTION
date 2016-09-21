@@ -12,5 +12,6 @@ RoxygenNote: 5.0.1
 Suggests: knitr,
     rmarkdown,
     gridExtra,
-    ggplot2
+    ggplot2,
+    testthat
 VignetteBuilder: knitr

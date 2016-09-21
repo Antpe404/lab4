@@ -2,11 +2,11 @@
 % Please edit documentation in R/plot.linreg.R
 \name{plot.linreg}
 \alias{plot.linreg}
-\title{Available methods in 'linreg'}
+\title{Plots regarding the residuals}
 \usage{
 \method{plot}{linreg}(l)
 }
 \description{
-The methods available for the linreg-package are described here.
+The plot() makes two plots about the relationship between the fitted values and the residuals.
 }
 

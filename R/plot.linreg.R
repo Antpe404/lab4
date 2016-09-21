@@ -1,6 +1,7 @@
-#' Available methods in 'linreg'
+#' Plots regarding the residuals
 #' 
-#' The methods available for the linreg-package are described here.
+#' The plot() makes two plots about the relationship between the fitted values and the residuals.
+#' 
 #' 
 #' 
 #' @export

@@ -1,6 +1,6 @@
-#' Available methods in 'linreg'
+#' The residuals from the linear regression 'linreg'
 #' 
-#' The methods available for the linreg-package are described here.
+#' The resid() returns all the residuals from the model in a vector.
 #' 
 #' 
 #' @export

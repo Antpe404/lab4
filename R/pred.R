@@ -1,6 +1,7 @@
-#' Available methods in 'linreg'
+#' The fitted values from the linear regression 'linreg'
 #' 
-#' The methods available for the linreg-package are described here.
+#' The pred()-statement returns a vector including all fitted values from the linear regression.
+#' 
 #'
 #'
 #' @export 

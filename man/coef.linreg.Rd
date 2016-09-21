@@ -2,11 +2,11 @@
 % Please edit documentation in R/coef.linreg.R
 \name{coef.linreg}
 \alias{coef.linreg}
-\title{Available methods in 'linreg'}
+\title{The coefficients from the linear regression 'linreg'}
 \usage{
 \method{coef}{linreg}(l)
 }
 \description{
-The methods available for the linreg-package are described here.
+The coef() returns all estimates for the coefficients in your linear regression.
 }
 

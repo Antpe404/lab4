@@ -2,11 +2,11 @@
 % Please edit documentation in R/resid.linreg.R
 \name{residuals.linreg}
 \alias{residuals.linreg}
-\title{Available methods in 'linreg'}
+\title{The residuals from the linear regression 'linreg'}
 \usage{
 \method{residuals}{linreg}(l)
 }
 \description{
-The methods available for the linreg-package are described here.
+The resid() returns all the residuals from the model in a vector.
 }
 
