@@ -18,25 +18,27 @@ plot.linreg<-function(l){
   colnames(plotdata) <- c("res","pred")
   plotdata$stdres <- sqrt(abs(scale(plotdata$res,center=FALSE)))
   
-  p1<-ggplot(plotdata,aes(y=res,x=pred)) + 
-    geom_point() +
-    geom_smooth(method="lm",se=FALSE,col="grey",linetype = "dashed") +
-    #geom_smooth(se=FALSE,col="red") +
-    theme_bw() + 
-    theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-          panel.border = element_rect(colour = "black", fill=NA, size=1)) +
+  p1 <- ggplot(plotdata,aes(y=res,x=pred)) 
+  p1 <- p1  +  geom_point() 
+  p1 <- p1  +  geom_hline(yintercept = 0,col="grey",linetype = "dashed") 
+  p1 <- p1  +  stat_smooth(method = "loess", col = "red", se = FALSE) 
+  p1 <- p1  +  theme_bw()  
+  p1 <- p1  +  theme(panel.grid.major = element_blank() , panel.grid.minor = element_blank(),
+                panel.border = element_rect(colour = "black", fill=0, size=1) ) +
+   
     xlab(paste("Fitted Values", paste(as.character(l$formula)[c(2,1,3)],collapse = " "), sep = " \n ")) +
     ylab("Residuals") +ggtitle("Residuals vs Fitted")
   
   
   
-  p2<-ggplot(plotdata,aes(y=stdres,x=pred)) + 
-    geom_point() +
-    geom_smooth(method="lm",se=FALSE,col="grey",linetype = "dashed")+
-    geom_smooth(se=FALSE,col="red") +
-    theme_bw() + 
-    theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-          panel.border = element_rect(colour = "black", fill=NA, size=1) )+
+  p2 <- ggplot(plotdata,aes(y=stdres,x=pred))  
+  p2 <- p2  +  geom_point() 
+  p2 <- p2  +  stat_smooth(method ="loess",col="red", se = FALSE) 
+  p2 <- p2  +  theme_bw() 
+      
+  p2 <- p2  +  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+               panel.border = element_rect(colour = "black", fill=0, size=1) )+
+    
     xlab(paste("Fitted Values", paste(as.character(l$formula)[c(2,1,3)],collapse = " "), sep = " \n ")) +
     ylab(expression(sqrt("Standardized Residuals"))) +ggtitle("Scale vs Location")
   

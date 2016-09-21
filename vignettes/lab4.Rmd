@@ -60,11 +60,12 @@ coef(mylm)
 
 And the coef produces an output. The added functions to plot for objects with the class 'linreg' produces two diagnostic plots for the residuals. They are exemplified below.
 
-```{r, fig.width = 7.4, fig.height = 5}
+```{r, fig.width = 7.4, fig.height = 5, message= FALSE}
 plot(mylm)
 ```
 
 And this concludes the functions added functions for the linreg class. 
 
+##Contact info
 
-
+If you find any problems with the package or it's documentation, please send us some feedback or critique. Contact Anton Persson, antpe404@student.liu.se, or Emil Klasson Svensson, emisv463@student.liu.se.
