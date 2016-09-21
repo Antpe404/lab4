@@ -10,5 +10,7 @@ Description: Implements a linear model function and a class with
 License: BSD_2_clause
 RoxygenNote: 5.0.1
 Suggests: knitr,
-    rmarkdown
+    rmarkdown,
+    gridExtra,
+    ggplot2
 VignetteBuilder: knitr
