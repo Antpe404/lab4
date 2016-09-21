@@ -31,6 +31,25 @@
 
 linreg<-function(formula,data){
   
+  if(is.character(formula) == TRUE){
+    formula <- as.formula(formula)
+  }
+  if(class(formula) != "formula"){
+    stop("The formula is not in the correct format")
+  }
+  
+  if( is.data.frame == TRUE ){
+    data = as.matrix(data)
+  }
+  if(nrow(data)[1] < 5 )  {
+    stop("To few rows of data")
+  }
+  
+  if(ncol(data)[2] < 1 )  {
+    stop("To few columms of data, please supply more than one row of data")
+  }
+  
+
   
   des.mat <- model.matrix(formula , data) #Extracts the model matrix
   dep.var <- all.vars(formula)[1]         #Extracts the name of the y-variable 
