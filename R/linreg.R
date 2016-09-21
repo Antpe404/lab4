@@ -38,14 +38,14 @@ linreg<-function(formula,data){
     stop("The formula is not in the correct format")
   }
   
-  if( is.data.frame == TRUE ){
-    data = as.matrix(data)
+  if( is.matrix(data) == TRUE ){
+    data = as.data.frame(data)
   }
-  if(nrow(data)[1] < 5 )  {
+  if(nrow(data) < 5 )  {
     stop("To few rows of data")
   }
   
-  if(ncol(data)[2] < 1 )  {
+  if( ncol(data) < 1 )  {
     stop("To few columms of data, please supply more than one row of data")
   }
   
@@ -82,7 +82,7 @@ linreg<-function(formula,data){
 
 #mylm<-test( Petal.Length ~ Species, iris)
 #mylm<-test(Sepal.Length ~ Sepal.Width,data = iris)
-
+#linreg( Petal.Length ~ Petal.Length, iris)
 #skit<-test(Sepal.Length~ Petal.Width, iris)
 
 
