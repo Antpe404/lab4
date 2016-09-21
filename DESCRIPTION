@@ -1,11 +1,14 @@
 Package: lab4
 Type: Package
-Title: Lab 4 732A94
+Title: Lab4advR
 Version: 1.0
 Date: 2016-09-20
 Author: Emil Klasson Svensson [aut,cre] Anton Persson [aut,cre]
 Maintainer: Emil Klasson Svensson <emisv463@student.liu.se>
-Description: Implements a linear model function and a corresponding class with
-    the name linreg.
+Description: Implements a linear model function and a class with
+    the name linreg
 License: BSD_2_clause
 RoxygenNote: 5.0.1
+Suggests: knitr,
+    rmarkdown
+VignetteBuilder: knitr

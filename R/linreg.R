@@ -1,8 +1,35 @@
-#data.class() #Behover nog den har far att testa om det är S3 eller RC.
+#' The least-square method 
+#'
+#' Computes a linear model using the least-square estimation. 
+#' The function also computes serveral diagnostic measures such as p-value, variance and fitted values. 
+#'
+#' @param formula    an object of class "formula" or a character vector on the form y ~ x 
+#'                   The dependent (y) and independent variable (x)
+#'                  
+#' @param data       a data set from which the used variables are taken (data rejm is prefered)
+#' @return an list of class 'linreg' containing the following data:
+#' 
+#' @details 
+#' The 'linreg' function uses ordinary linear algebra to compute the most 
+#' important measures for a linear regression. 
+#' These measures are stored in a list of class 'linreg'. 
+#' 
+#'  
+#' @references 
+#'
+#' http://en.wikipedia.org/wiki/Least_squares
+#' http://en.wikipedia.org/wiki/Linear_regression
+#' 
+#' @examples 
+#' ## Make a simple linear regression of how the Petal.Length responds to the Petal.Width in the dataset iris.
+#'    linreg(Petal.Length ~ Species, iris)
+#'
+#' @export
+ 
 
-#if(!is.expression(formula)) stop("The given formula is not a correct expression") #oklar om den är nödvändig
 
-test<-function(formula,data){
+
+linreg<-function(formula,data){
   
   
   des.mat <- model.matrix(formula , data) #Extracts the model matrix
@@ -38,6 +65,10 @@ test<-function(formula,data){
 #mylm<-test(Sepal.Length ~ Sepal.Width,data = iris)
 
 #skit<-test(Sepal.Length~ Petal.Width, iris)
+
+
+#data.class() #Behover nog den har far att testa om det är S3 eller RC.
+#if(!is.expression(formula)) stop("The given formula is not a correct expression") #oklar om den är nödvändig
 
 
 

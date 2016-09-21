@@ -1,0 +1,70 @@
+---
+title: "Get help with you linear regression using the lab4-package"
+author: "Anton Persson & Emil Klasson Svensson"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{lab4}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+Lab4 is a package created during a R-course and is supposed to simplify linear regression models and adds a class called 'linreg'. If you for some reason hate lm(), which is better, you can defintely use lab4-package!
+
+## Vignette Info
+
+The package includes a function linreg, which contains the most important results of a linear regression. There are som methods that can be used to easily produce the measures that you're searching for. The package is exemplified using the dataset iris in the next section.
+
+## Examples of how to use lab4
+
+The function 'linreg' produces a linear regression. To make a simple linear regression with Petal.Length as the dependent variable and Petal.Width as the independent variable, see the example below.
+```{r, echo=TRUE}
+library(lab4)
+mylm<-linreg( Petal.Length ~ Petal.Width, iris)
+
+```
+
+This produces a list-type of object of the class 'linreg'. In this example it's been given the name mylm. To get convenient output of your linear regression, there are several methods created to do that. For example, to get the coefficients of the parameters, use print.
+
+```{r, echo=TRUE}
+print(mylm)
+```
+
+As shown, this produces an output for the given formula, presenting the estimated parameter coefficients.
+
+The fitted values can be extracted by using the pred()-statement, see the example below.
+
+```{r, echo=TRUE}
+#Show the first 5 fitted values of the mylm-object.
+head( pred(mylm), 5)
+
+```
+
+Here the five first elements of the fitted values are shown. The resid function generates a similar output with the residuals. 
+
+```{r, echo=TRUE}
+resid(mylm)[1:5] #Prints the first five elements
+```
+
+And the five first elements are printed out as a vector. The summary function is producing a similar output as of objects of the class 'lm'
+
+```{r, echo = TRUE}
+summary(mylm)
+
+```
+
+Outputs as the estimaded coefficients, t-values and degrees of freedom are presentet. The coef-statement produces an output with the estimated coefficients. 
+
+```{r}
+coef(mylm)
+```
+
+And the coef produces an output. The added functions to plot for objects with the class 'linreg' produces two diagnostic plots for the residuals. They are exemplified below.
+
+```{r, fig.width = 7.4, fig.height = 5}
+plot(mylm)
+```
+
+And this concludes the functions added functions for the linreg class. 
+
+
+
