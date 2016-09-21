@@ -8,11 +8,12 @@
 
 
 
-print.linreg <- function(l) { 
-  print(paste("Formula: (", l$formula[2], " ~ ", l$formula[3],") ,   data: ", l$dataset, sep=""))
-  print("                    ")
-  print(l$coefficients)
+print.linreg<- function(l){
+  call<-  l$formula
+  coeff<- as.vector(l$coefficients)
+  names(coeff)<- c('(Intercept)', paste(l$formula[3]))
+  result<- list(Formula =call, Coefficients = coeff, Dataset=l$dataset)
+  print(result)
 }
-
 #print(mylm) 
 #print.linreg(mylm)

@@ -80,14 +80,5 @@ linreg<-function(formula,data){
   return(l)
   }
 
-#mylm<-test( Petal.Length ~ Species, iris)
-#mylm<-test(Sepal.Length ~ Sepal.Width,data = iris)
-#linreg( Petal.Length ~ Petal.Length, iris)
-#skit<-test(Sepal.Length~ Petal.Width, iris)
-
-
-#data.class() #Behover nog den har far att testa om det är S3 eller RC.
-#if(!is.expression(formula)) stop("The given formula is not a correct expression") #oklar om den är nödvändig
-
 
 

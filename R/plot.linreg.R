@@ -44,7 +44,7 @@ plot.linreg<-function(l){
     ylab(expression(sqrt("Standardized Residuals"))) +ggtitle("Scale vs Location")
   
   p3<-arrangeGrob(p1,p2,ncol=2)
-  plot(p3)
+  suppressWarnings(plot(p3))
 }
 
 #plot(mylm)
