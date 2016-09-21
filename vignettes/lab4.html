@@ -86,10 +86,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 mylm&lt;-<span class="kw">linreg</span>( Petal.Length ~<span class="st"> </span>Petal.Width, iris)</code></pre></div>
 <p>This produces a list-type of object of the class ‘linreg’. In this example it’s been given the name mylm. To get convenient output of your linear regression, there are several methods created to do that. For example, to get the coefficients of the parameters, use print.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(mylm)</code></pre></div>
-<pre><code>## [1] &quot;Formula: (Petal.Length ~ Petal.Width) ,   data: iris&quot;
-## [1] &quot;                    &quot;
-##  (Intercept) Petal.Width
-##     1.083558     2.22994</code></pre>
+<pre><code>## $Formula
+## Petal.Length ~ Petal.Width
+## 
+## $Coefficients
+## (Intercept) Petal.Width 
+##    1.083558    2.229940 
+## 
+## $Dataset
+## [1] &quot;iris&quot;</code></pre>
 <p>As shown, this produces an output for the given formula, presenting the estimated parameter coefficients.</p>
 <p>The fitted values can be extracted by using the pred()-statement, see the example below.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Show the first 5 fitted values of the mylm-object.</span>
