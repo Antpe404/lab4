@@ -8,6 +8,10 @@
 coef.ridgereg <- function(l) { 
   #print(paste("Formula: (", l$formula[2], " ~ ", l$formula[3],") ,   data: ", l$dataset, sep=""))
   Coefficients<-as.vector(l$coefficients)
-  names(Coefficients) = c("(Intercept)", paste(l$formula[3]))
+  names(Coefficients) = c(paste(rownames(l$coefficients)))
   print(Coefficients)
 }
+
+
+#coef(mylm)
+#l$coefficients

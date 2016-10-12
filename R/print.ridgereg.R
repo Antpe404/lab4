@@ -11,9 +11,9 @@
 print.ridgereg<- function(l){
   call<-  l$formula
   coeff<- as.vector(l$coefficients)
-  names(coeff)<- c('(Intercept)', paste(l$formula[3]))
+  names(coeff)<- c(paste(rownames(l$coefficients)))
   result<- list(Formula =call, Coefficients = coeff, Dataset=l$dataset)
   print(result)
 }
-#print(mylm) 
-#print.linreg(mylm)
+
+#print(mylm)
