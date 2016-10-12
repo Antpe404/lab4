@@ -18,7 +18,7 @@ meantbl<-flights %>%
   filter(!is.na(avg)) %>% 
   filter(!is.na(lon)) %>%
   filter(!is.na(lat))
-
+####asfihashfiasfhiashf
 #maps::map_data()
 #worldmap<-map_data('world')
 USAUSA<-map_data('world') %>% 
@@ -44,7 +44,7 @@ plot(p)
 #glimpse(airlines)
 #glimpse(airports)
 #glimpse(flights)
-#det genomsnittliga föresningen för flyg gruperat  flygplatser sorterat på long/lat
+#det genomsnittliga f?resningen f?r flyg gruperat  flygplatser sorterat p? long/lat
 # i flights har vi flygplan och i airports har vi flygplatser, long och lat
 
 
