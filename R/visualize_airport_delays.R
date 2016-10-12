@@ -1,8 +1,8 @@
-nycflights13
-install.packages('nycflights13')
-library(ggmap)
-library(nycflights13)
-library(dplyr)
+
+#install.packages('nycflights13')
+#library(ggmap)
+#library(nycflights13)
+#library(dplyr)
 #library(maps)
 
 visualize_airport_delays<-function() {
@@ -18,7 +18,6 @@ meantbl<-flights %>%
   filter(!is.na(avg)) %>% 
   filter(!is.na(lon)) %>%
   filter(!is.na(lat))
-####asfihashfiasfhiashf
 #maps::map_data()
 #worldmap<-map_data('world')
 USAUSA<-map_data('world') %>% 
@@ -56,8 +55,8 @@ plot(p)
 
 #semi_join(meantbl,airports,by=c("dest"="faa"))
 
-meantbl<-filter(meantbl,!is.na(avg)) %>% 
-  filter(!is.na(lon)) %>%
-  filter(!is.na(lat))
+#meantbl<-filter(meantbl,!is.na(avg)) %>% 
+ # filter(!is.na(lon)) %>%
+#  filter(!is.na(lat))
 
 
