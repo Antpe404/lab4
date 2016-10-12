@@ -64,9 +64,9 @@ ridgereg<-function(formula, lambda = 0 ,data){
 
 #names(longley)[1] <- "y"
 #ridgereg(formula=y ~ ., data=longley, lambda=2)
+#Nu ska anton prova att puCHA!laTECHHHHHHHH!
 
-
-#JMF med nedanstående
+#JMF med nedanst?ende
 #names(longley)[1] <- "y"
 #testridge<-lm.ridge(y ~ ., longley, lambda = 2)
 #testridge$coef
