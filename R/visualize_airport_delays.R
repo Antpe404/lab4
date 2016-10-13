@@ -13,21 +13,13 @@ require(ggplot2)
 require(dplyr) 
 require(nycflights13) 
 
-<<<<<<< HEAD
-meantbl<-flights %>% 
-  group_by(dest) %>% #grupperar på dest, dvs slutmål?
-  summarise(avg = mean(dep_delay, na.rm = TRUE)) %>% #tar fram mean dep_delay (vilket väl dock borde vara departure delay?)
-  left_join(airports,by=c("dest"="faa"))  %>% #Joinar med airports, var dest och faa. 
-  filter(!is.na(avg)) %>% #Tar bort rader där avg är NA
-  filter(!is.na(lon)) %>% #Tar bort rader där avg är NA
-=======
+
 meantbl<-flights %>%
   group_by(dest) %>% 
   summarise(avg = mean(arr_delay, na.rm = TRUE)) %>%
   left_join(airports,by=c("dest"="faa"))  %>% 
   filter(!is.na(avg)) %>% 
   filter(!is.na(lon)) %>%
->>>>>>> e3a8c4e976f06865bfa91abea6204aae92950489
   filter(!is.na(lat))
 #maps::map_data()
 #worldmap<-map_data('world')
