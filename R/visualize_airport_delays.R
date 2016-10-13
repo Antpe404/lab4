@@ -1,10 +1,10 @@
 
-install.packages("dplyr")
-install.packages('nycflights13')
-install.packages("ggmap")
-library(ggmap)
-library(nycflights13)
-library(dplyr)
+#install.packages("dplyr")
+#install.packages('nycflights13')
+#install.packages("ggmap")
+#library(ggmap)
+#library(nycflights13)
+#library(dplyr)
 #library(maps)
 
 visualize_airport_delays<-function() {
