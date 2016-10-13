@@ -15,5 +15,3 @@ print.linreg<- function(l){
   result<- list(Formula =call, Coefficients = coeff, Dataset=l$dataset)
   print(result)
 }
-#print(mylm) 
-#print.linreg(mylm)
