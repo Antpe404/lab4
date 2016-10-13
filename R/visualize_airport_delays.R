@@ -1,8 +1,10 @@
 
-#install.packages('nycflights13')
-#library(ggmap)
-#library(nycflights13)
-#library(dplyr)
+install.packages("dplyr")
+install.packages('nycflights13')
+install.packages("ggmap")
+library(ggmap)
+library(nycflights13)
+library(dplyr)
 #library(maps)
 
 visualize_airport_delays<-function() {
@@ -11,12 +13,12 @@ require(ggplot2)
 require(dplyr) 
 require(nycflights13) 
 
-meantbl<-flights %>%
-  group_by(dest) %>% 
-  summarise(avg = mean(dep_delay, na.rm = TRUE)) %>%
-  left_join(airports,by=c("dest"="faa"))  %>% 
-  filter(!is.na(avg)) %>% 
-  filter(!is.na(lon)) %>%
+meantbl<-flights %>% 
+  group_by(dest) %>% #grupperar på dest, dvs slutmål?
+  summarise(avg = mean(dep_delay, na.rm = TRUE)) %>% #tar fram mean dep_delay (vilket väl dock borde vara departure delay?)
+  left_join(airports,by=c("dest"="faa"))  %>% #Joinar med airports, var dest och faa. 
+  filter(!is.na(avg)) %>% #Tar bort rader där avg är NA
+  filter(!is.na(lon)) %>% #Tar bort rader där avg är NA
   filter(!is.na(lat))
 #maps::map_data()
 #worldmap<-map_data('world')
