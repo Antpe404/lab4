@@ -13,7 +13,7 @@ require(nycflights13)
 
 meantbl<-flights %>%
   group_by(dest) %>% 
-  summarise(avg = mean(dep_delay, na.rm = TRUE)) %>%
+  summarise(avg = mean(arr_delay, na.rm = TRUE)) %>%
   left_join(airports,by=c("dest"="faa"))  %>% 
   filter(!is.na(avg)) %>% 
   filter(!is.na(lon)) %>%
