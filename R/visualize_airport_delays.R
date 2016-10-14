@@ -1,11 +1,11 @@
+#'Visualize aiport delays
+#'
+#' Visualize all airport delays in the nycflights13 package with a mapogram.
+#' The package takes no arguments. 
+#'
+#'
+#'@export
 
-#install.packages("dplyr")
-#install.packages('nycflights13')
-#install.packages("ggmap")
-#library(ggmap)
-#library(nycflights13)
-#library(dplyr)
-#library(maps)
 
 visualize_airport_delays<-function() {
 

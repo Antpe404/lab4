@@ -1,0 +1,80 @@
+---
+title: "Ridgereg report"
+author: "Anton Persson & Emil Klasson Svensson"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{ridgereg}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+To make a prediction with the ridgereg function, pred-function is utilized. In this example we are going to use the longley-dataset to predict for five new observations. To make a prediction you will need observations for each of the fitted parameters with the exeption of the intercpt. 
+
+```{r}
+library(lab4)
+data("longley")
+names(longley)[1] <- "y"
+mylmrid <- ridgereg(formula=y~. , data = longley, lambda = 2) #fitting the model
+pred.data <- longley[11:15,-1] + 2  #generate some new data to predict 
+
+pred(l = mylmrid, newdata = pred.data)
+
+```
+
+And you have five new steaming hot predictions. If you dont give the parameter newdata an data frame you will get the fitted values.
+
+## 1
+
+```{r}
+
+library(caret)
+library(mlbench)
+
+data(BostonHousing)
+
+set.seed(3456)
+trainIndex <- createDataPartition(BostonHousing$chas, p = .75, 
+                                  list = FALSE, 
+                                  times = 1)
+#stratifierat urval på chas, olkart om det är bra. 
+
+bostonTrain <- BostonHousing[trainIndex,]
+bostonTest <- BostonHousing[-trainIndex,]
+
+
+
+```
+
+75 % in the training and 25 % in the test. 
+
+## 2
+
+```{r}
+#linear model
+ridFit <- train(crim ~ . , data = bostonTrain, method = "lm") 
+
+#forward selection
+ridFitForward <- train(crim ~ . , data = bostonTrain, method = "leapForward") 
+
+
+ridFit$results
+```
+
+Two different fits as described in the lab. The  R-sq for the linear model is 0.41 which is decent.  
+
+
+```{r,echo = F }
+predictions<-as.data.frame(x= 
+  predict(ridFitForward,newdata = bostonTest) 
+  )#predict hittar de variabler den ska använda. 
+colnames(predictions) <- "pred"
+
+ggplot()+geom_point(data = bostonTest,aes(y=crim,x=c(1:length(bostonTest$crim))))+
+  geom_point(data=predictions,aes(y = pred,x=c(1:length(bostonTest$crim))),col="red") + xlab("")
+
+```
+The fits and actual values  for the forward-selected model. The red dots are fits. The model has a hard time predicting values around zero but overall its a okay fit. 
+
+
+
