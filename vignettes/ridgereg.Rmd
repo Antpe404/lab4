@@ -9,7 +9,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-To make a prediction with the ridgereg function, pred-function is utilized. In this example we are going to use the longley-dataset to predict for five new observations. To make a prediction you will need observations for each of the fitted parameters with the exeption of the intercpt. 
+To make a prediction with the ridgereg function, pred function is utilized. In this example we are going to use the longley dataset to predict for five new observations. To make a prediction you will need observations for each of the fitted parameters with the exeption of the intercpt. 
 
 ```{r}
 library(lab4)
@@ -24,7 +24,7 @@ pred(l = mylmrid, newdata = pred.data)
 
 And you have five new steaming hot predictions. If you dont give the parameter newdata an data frame you will get the fitted values.
 
-## 1
+
 
 ```{r}
 
@@ -37,7 +37,6 @@ set.seed(3456)
 trainIndex <- createDataPartition(BostonHousing$chas, p = .75, 
                                   list = FALSE, 
                                   times = 1)
-#stratifierat urval på chas, olkart om det är bra. 
 
 bostonTrain <- BostonHousing[trainIndex,]
 bostonTest <- BostonHousing[-trainIndex,]
@@ -46,9 +45,9 @@ bostonTest <- BostonHousing[-trainIndex,]
 
 ```
 
-75 % in the training and 25 % in the test. 
+75 percent in the training and 25 percent in the test. 
 
-## 2
+
 
 ```{r}
 #linear model
@@ -58,23 +57,40 @@ ridFit <- train(crim ~ . , data = bostonTrain, method = "lm")
 ridFitForward <- train(crim ~ . , data = bostonTrain, method = "leapForward") 
 
 
-ridFit$results
+
 ```
 
-Two different fits as described in the lab. The  R-sq for the linear model is 0.41 which is decent.  
+Two different fits as described in the lab. The  R sq for the linear model is 0.41 which is decent.  
 
 
-```{r,echo = F }
+```{r }
 predictions<-as.data.frame(x= 
   predict(ridFitForward,newdata = bostonTest) 
-  )#predict hittar de variabler den ska använda. 
+  ) 
 colnames(predictions) <- "pred"
 
 ggplot()+geom_point(data = bostonTest,aes(y=crim,x=c(1:length(bostonTest$crim))))+
   geom_point(data=predictions,aes(y = pred,x=c(1:length(bostonTest$crim))),col="red") + xlab("")
 
 ```
-The fits and actual values  for the forward-selected model. The red dots are fits. The model has a hard time predicting values around zero but overall its a okay fit. 
+The fits and actual values  for the forward selected model. The red dots are fits. The model has a hard time predicting values around zero but overall its a okay fit. 
+
+
+```{r}
+
+fitControl <- trainControl(
+  method = "repeatedcv",
+  number = 10,
+  repeats = 10)
+
+set.seed(3245)
+wigdeweg <- train(crim~ .,data=bostonTrain,method="ridge", trControl = fitControl,
+                  tuneGrid= expand.grid(lambda=seq(0,20,1)) )
+
+print(wigdeweg)
+```
+
+On the RMSE measure the optimal lambda was 0 in our case. It is the best model of all the previously fitted models when RMSE and R sq are evaluated. 
 
 
 
